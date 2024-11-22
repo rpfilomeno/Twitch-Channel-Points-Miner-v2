@@ -1,3 +1,5 @@
+# Forked for docker [rpfilomeno/twitch-channel-points-miner-v2](https://hub.docker.com/r/rpfilomeno/twitch-channel-points-miner-v2) using smaller [linuxserver.io](https://www.linuxserver.io/) base images
+
 ![Twitch Channel Points Miner - v2](https://raw.githubusercontent.com/rdavydov/Twitch-Channel-Points-Miner-v2/master/assets/banner.png)
 <p align="center">
 <a href="https://github.com/rdavydov/Twitch-Channel-Points-Miner-v2/releases"><img alt="Latest Version" src="https://img.shields.io/github/v/release/rdavydov/Twitch-Channel-Points-Miner-v2?style=flat&color=white&logo=github&logoColor=white"></a>
