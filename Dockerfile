@@ -1,43 +1,16 @@
-FROM python:3.12
-
-ARG BUILDX_QEMU_ENV
+FROM ghcr.io/linuxserver/baseimage-alpine:edge
 
 WORKDIR /usr/src/app
 
+RUN apk add --update --no-cache curl py-pip
+
+RUN python3 -m venv venv
+
 COPY ./requirements.txt ./
 
-ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
+RUN source venv/bin/activate && pip install --upgrade pip  && pip install -r requirements.txt  && pip cache purge
 
-RUN pip install --upgrade pip
+COPY ./run.sh ./
+COPY ./TwitchChannelPointsMiner ./TwitchChannelPointsMiner
 
-RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --fix-missing --no-install-recommends \
-    gcc \
-    libffi-dev \
-    rustc \
-    zlib1g-dev \
-    libjpeg-dev \
-    libssl-dev \
-    libblas-dev \
-    liblapack-dev \
-    make \
-    cmake \    
-    automake \
-    ninja-build \
-    g++ \
-    subversion \
-    python3-dev \
-  && if [ "${BUILDX_QEMU_ENV}" = "true" ] && [ "$(getconf LONG_BIT)" = "32" ]; then \
-        pip install -U cryptography==3.3.2; \
-     fi \
-  && pip install -r requirements.txt \
-  && pip cache purge \
-  && apt-get remove -y gcc rustc \
-  && apt-get autoremove -y \
-  && apt-get autoclean -y \
-  && apt-get clean -y \
-  && rm -rf /var/lib/apt/lists/* \
-  && rm -rf /usr/share/doc/*
-
-ADD ./TwitchChannelPointsMiner ./TwitchChannelPointsMiner
-ENTRYPOINT [ "python", "run.py" ]
+ENTRYPOINT [ "/bin/sh", "run.sh" ]
