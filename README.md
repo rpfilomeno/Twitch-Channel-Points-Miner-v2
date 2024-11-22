@@ -1,6 +1,8 @@
 # Forked for docker [rpfilomeno/twitch-channel-points-miner-v2](https://hub.docker.com/r/rpfilomeno/twitch-channel-points-miner-v2) using smaller [linuxserver.io](https://www.linuxserver.io/) base images
 
 ```yaml
+# docker-compose.yml
+
 name: points-miner
 services:
   miner:
